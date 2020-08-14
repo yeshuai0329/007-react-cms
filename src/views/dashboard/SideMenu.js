@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Layout, Menu } from 'antd'
 import MenuArr from '../../router/menu.js'
 import { withRouter } from 'react-router'
+import store from '../../redux/store.js'
 
 const { Sider } = Layout
 const { SubMenu } = Menu
@@ -9,6 +10,16 @@ const { SubMenu } = Menu
 class SideMenu extends Component {
   state = {
     collapsed: false
+  }
+  componentDidMount() {
+    this.unscribe = store.subscribe(() => {
+      this.setState({
+        collapsed: store.getState().isCollapsed
+      })
+    })
+  }
+  componentWillUnmount() {
+    this.unscribe()
   }
 
   render() {
@@ -29,7 +40,6 @@ class SideMenu extends Component {
   }
   renderMenu = (menulist) => {
     var { roleType } = JSON.parse(localStorage.getItem('token'))
-    console.log(roleType)
     return menulist.map((item) => {
       if (item.children && roleType >= item.permission) {
         return (

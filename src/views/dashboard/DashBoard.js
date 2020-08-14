@@ -13,9 +13,12 @@ import Category from '../artmanage/Category.js'
 import SideMenu from './SideMenu.js'
 import TopHeader from './TopHeader.js'
 import './index.css'
-
 import { Layout } from 'antd'
+import Create from '../artmanage/Create.js'
+import Update from '../artmanage/Update.js'
+import Preview from '../artmanage/Preview.js'
 const { Content } = Layout
+
 export default class DashBoard extends Component {
   render() {
     return (
@@ -28,7 +31,7 @@ export default class DashBoard extends Component {
             style={{
               margin: '24px 16px',
               padding: 24,
-              minHeight: 280
+              minHeight: 'auto'
             }}
           >
             <Switch>
@@ -38,6 +41,9 @@ export default class DashBoard extends Component {
               <Route path="/right-manage" component={Manage} />
               <Route path="/article-manage/list" component={List} />
               <Route path="/article-manage/category" component={Category} />
+              <Route path="/article-manage/create" component={Create} />
+              <Route path="/article-manage/preview/:id" component={Preview} />
+              <Route path="/article-manage/update/:id" component={Update} />
               <Redirect from="/" to="/home" exact />
               <Route path="*" component={Error} />
             </Switch>

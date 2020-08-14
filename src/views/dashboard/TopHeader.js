@@ -6,6 +6,7 @@ import {
   MenuFoldOutlined,
   UserOutlined
 } from '@ant-design/icons'
+import store from '../../redux/store.js'
 
 const { Header } = Layout
 
@@ -34,6 +35,7 @@ class TopHeader extends Component {
             onClick: this.toggle
           }
         )}
+
         <div style={{ float: 'right' }}>
           <span style={{ marginRight: '10px' }}>欢迎{currentUser}回来</span>
           <Dropdown overlay={menu}>
@@ -44,6 +46,10 @@ class TopHeader extends Component {
     )
   }
   toggle = () => {
+    store.dispatch({
+      type: 'ye_change_collapsed',
+      payload: !this.state.collapsed
+    })
     this.setState({
       collapsed: !this.state.collapsed
     })
